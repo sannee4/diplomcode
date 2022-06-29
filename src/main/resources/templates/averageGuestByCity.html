@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+  <meta charset="utf-8">
+  <title>Create an account</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <link rel="stylesheet" href="../static/css/main.css">
+</head>
+<body>
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+  <div sec:authorize="isAuthenticated()">
+    <form id="logoutForm" method="POST" th:action="@{/logout}">
+      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    </form>
+
+    <h2>Welcome <span sec:authentication="name"></span> | <a
+            onclick="document.forms['logoutForm'].submit()">Logout</a></h2>
+  </div>
+</div>
+<div class="px-4 py-5 my-5 text-center">
+  <img class="d-block mx-auto mb-4" src="../static/images/enterprise.png" th:src="@{/images/enterprise.png}" alt="" width="72" height="72">
+  <h1 class="display-5 fw-bold">Типовой<br>гость в городе</h1>
+  <div class="col-lg-6 mx-auto">
+    <p class="lead mb-3">Здесь вы можете выбрать город и посмотреть<br>типового гостя в выбранном вами городе<br><br>Для этого выберите город:</p>
+    <form th:action="@{/v1/guestAverageByCity}" method="post" th:object="${guestRequest}">
+      <div class="container col-lg-6">
+        <div class="col-auto">
+          <div>
+            <label>Укажите город:</label>
+            <input type="text" class="form-control mb-3" th:field="*{city}"/>
+            <br>
+          </div>
+          <button type="submit" class="btn btn-dark col-lg-12">Показать среднего гостя</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="container col-lg-5">
+    <h2 class="mt-5 zagolovok-padding">Типовой гость:</h2>
+    <div class="row mb-3">
+      <div class="col-md-7 themed-grid-col">пол: <span th:text="${gender}"/></div>
+      <div class="col-md-5 themed-grid-col"><span th:text="${age}"/></div>
+    </div>
+  </div>
+  <div class="container sticky-xxl-bottom">
+    <footer class="py-3 my-4">
+      <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Кол-во гостей на дату</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Кол-во гостей за период</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Кол-во гостей в гостинице на дату</a>
+        </li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Кол-во гостей в гостинице за
+          период</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Средний гость в городе</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Кол-во гостей из населенных пунктов
+          проживания</a></li>
+      </ul>
+      <p class="text-center text-muted">© 2021 Company, Inc</p>
+    </footer>
+  </div>
+</body>
+</html>

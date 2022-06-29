@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="utf-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body>
+  <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+    <div sec:authorize="isAuthenticated()">
+        <form id="logoutForm" method="POST" th:action="@{/logout}">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        </form>
+
+        <h2>Welcome <span sec:authentication="name"></span> | <a onclick="document.forms['logoutForm'].submit()">Logout</a></h2>
+    </div>
+  </div>
+
+  <div class="container col-xxl-9 px-2 py-2">
+      <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+          <div class="col-10 col-sm-8 col-lg-5">
+              <img src="../static/images/kazan.svg" th:src="@{images/kazan.svg}" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="500" height="300" loading="lazy">
+          </div>
+          <div class="col-lg-7">
+              <h1 class="display-6 fw-bold lh-1 mb-3">Веб-сервис для анализа туристического потока Республики Татарстан</h1>
+              <p class="lead">Узнай количество гостей в гостинице, типового клиента и откуда приезжают туристы в несколько кликов.</p>
+              <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                  <button type="button" class="btn btn-dark btn-lg px-4 me-md-4">Начать</button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div class="container px-4 py-5" id="featured-3">
+      <h2 class="pb-2 border-bottom">Возможности сервиса</h2>
+      <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+          <div class="feature col">
+              <div class="d-inline-flex fs-2 mb-3">
+                  <img src="../static/images/people.png" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="50" height="50" loading="lazy" th:src="@{images/people.png}">
+              </div>
+              <h3></h3>
+              <p>Показать количество гостей <br> в определенную дату</p>
+              <a href="http://localhost:8080/v1/guestCountByDate" class="icon-link d-inline-flex align-items-center">
+                  Перейти
+              </a>
+          </div>
+          <div class="feature col">
+              <div class="d-inline-flex fs-2 mb-3">
+                  <img src="../static/images/people-2.png" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="50" height="50" loading="lazy" th:src="@{images/people-2.png}">
+              </div>
+              <h3></h3>
+              <p>Показать количество гостей<br>
+                  за определенный период</p>
+              <a href="http://localhost:8080/v1/guestCountByPeriod" class="icon-link d-inline-flex align-items-center">
+                  Перейти
+              </a>
+          </div>
+          <div class="feature col">
+              <div class="d-inline-flex fs-2 mb-3">
+                  <img src="../static/images/office-building.png" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="50" height="50" loading="lazy" th:src="@{images/office-building.png}">
+              </div>
+              <h3></h3>
+              <p>Показать количество гостей<br> в гостинице на определенную дату</p>
+              <a href="http://localhost:8080/v1/guestCountByDateWithHotel" class="icon-link d-inline-flex align-items-center">
+                  Перейти
+                  <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right"></use></svg>
+              </a>
+          </div>
+
+      </div>
+
+      <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+          <div class="feature col">
+              <div class="d-inline-flex fs-2 mb-3">
+                  <img src="../static/images/calendar.png" th:src="@{/images/calendar.png}" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="50" height="50" loading="lazy">
+              </div>
+              <h3></h3>
+              <p>Показать количество гостей <br>в гостинице за определенный<br>период</p>
+              <a href="http://localhost:8080/v1/guestCountByPeriodWithHotel" class="icon-link d-inline-flex align-items-center">
+                  Перейти
+              </a>
+          </div>
+          <div class="feature col">
+              <div class="d-inline-flex fs-2 mb-3">
+                  <img src="../static/images/famous.png" th:src="@{images/famous.png}" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="50" height="50" loading="lazy">
+              </div>
+              <h3></h3>
+              <p>Показать типового-<br>
+                  гостя<br>в гостинице</p>
+              <a href="http://localhost:8080/v1/guestAverageByHotel" class="icon-link d-inline-flex align-items-center">
+                  Перейти
+              </a>
+          </div>
+          <div class="feature col">
+              <div class="d-inline-flex fs-2 mb-3">
+                  <img src="../static/images/enterprise.png" th:src="@{images/enterprise.png}" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="50" height="50" loading="lazy">
+              </div>
+              <h3></h3>
+              <p>Показать типового-<br>
+              гостя<br>в городе</p>
+              <a href="http://localhost:8080/v1/guestAverageByCity" class="icon-link d-inline-flex align-items-center">
+                  Перейти
+                  <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right"></use></svg>
+              </a>
+          </div>
+
+      </div>
+
+      <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+          <div class="feature col">
+              <div class="d-inline-flex fs-2 mb-3">
+                  <img src="../static/images/destination.png" th:src="@{images/destination.png}" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="50" height="50" loading="lazy">
+              </div>
+              <h3></h3>
+              <p>Показать количество гостей <br> из населенных пунктов <br> проживания на дату</p>
+              <a href="http://localhost:8080/v1/guestCountByLivingCityAndDate" class="icon-link d-inline-flex align-items-center">
+                  Перейти
+              </a>
+          </div>
+      </div>
+  </div>
+
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  <script src="/js/main.js"></script>
+</body>
+</html>

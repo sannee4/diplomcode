@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="utf-8">
+    <title>Create an account</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body>
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+    <div sec:authorize="isAuthenticated()">
+        <form id="logoutForm" method="POST" th:action="@{/logout}">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        </form>
+
+        <h2>Welcome <span sec:authentication="name"></span> | <a
+                onclick="document.forms['logoutForm'].submit()">Logout</a></h2>
+    </div>
+</div>
+<div class="px-4 py-5 my-5 text-center">
+    <img class="d-block mx-auto mb-4" src="../static/images/people.png" th:src="@{/images/people.png}" alt="" width="72"
+         height="72">
+    <h1 class="display-5 fw-bold">Количество гостей на дату</h1>
+    <div class="col-lg-6 mx-auto">
+        <p class="lead mb-4">Здесь вы можете выбрать дату и посмотреть сколько туристов путешествуют в выбранную вами
+            дату.<br><br>Для этого выберите дату:</p>
+        <div class="container col-lg-6">
+            <div class="col-auto">
+                <form th:action="@{/v1/guestCountByDate}" method="post" th:object="${guestRequest}">
+                    <div class="col-auto">
+                        <select class="custom-select mr-sm-2 mb-2" th:field="*{dayFrom}">
+                            <option th:each="day : ${days}"
+                                    th:text="${day}"
+                                    th:value="${day}">
+                            </option>
+                        </select>
+                        <select class="custom-select mr-sm-2 mb-2" th:field="*{monthFrom}">
+                            <option th:each="month : ${months}"
+                                    th:text="${month}"
+                                    th:value="${month}">
+                            </option>
+                        </select>
+                        <select class="custom-select mr-sm-2 mb-2" th:field="*{yearFrom}">
+                            <option th:each="year : ${years}"
+                                    th:text="${year}"
+                                    th:value="${year}">
+                            </option>
+                        </select>
+                        <button type="submit" class="btn btn-dark col-lg-12">Показать</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <div class="container">
+        <footer class="py-3 my-4">
+            <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Кол-во гостей за период</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Кол-во гостей в гостинице на дату</a>
+                </li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Кол-во гостей в гостинице за
+                    период</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Средний гость в гостинице</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Средний гость в городе</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Кол-во гостей из населенных пунктов
+                    проживания</a></li>
+            </ul>
+            <p class="text-center text-muted">© 2021 Company, Inc</p>
+        </footer>
+    </div>
+</div>
+</body>
+</html>
